@@ -24,14 +24,21 @@ Article.prototype.toHtml = function() {
    3. article title,
    4. article body, and
    5. publication date. */
+  $newArticle.find('a').html(this.author);
+  $newArticle.find('a').attr('href', this.authorUrl);
+  $newArticle.find('h1').html(this.title);
+  $newArticle.find('section.article-body').html(this.body);
+  // $newArticle.find('time').html(this.publishedOn);
+
 
   // Display the date as a relative number of "days ago":
   $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
-  $newArticle.find('time').html('about' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
+  $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
   /* TODO: This cloned article is no longer a template,
    as it now has real data attached to it! We need to account
    for that and change it before this current article gets
    rendered to our DOM. */
+  $newArticle.removeClass('template');
   return $newArticle;
 };
 
